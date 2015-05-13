@@ -1,0 +1,36 @@
+---
+output: html_document
+---
+#RColorBrewer Example
+
+Usage of a couple of RColorBrewer's palettes.  First, here are all the 
+palettes availalbe in the package.
+
+```{r}
+library(RColorBrewer)
+display.brewer.all()
+```
+
+Now let's see it applied on some random data, displayed as boxplots, in this
+case with a qualitative palette implying a categorical grouping factor.
+
+```{r}
+set.seed(5)
+rand.data <- matrix(rnorm(200, 30, 2), 10, 20)
+boxplot(rand.data, col = colorRampPalette(brewer.pal(8, "Set1"))(20))
+```
+
+Depending on what is being communicated, the visualization could be improved
+by ordering the boxplots by median and using a diverging palette.
+
+```{r}
+set.seed(5)
+rand.data <- matrix(rnorm(200, 30, 2), 10, 20)
+colMedians <- numeric()
+for(i in 1:20){
+    colMedians[i] <- median(rand.data[,i])
+}
+colOrder <- order(colMedians)
+rand.data <- rand.data[,colOrder]
+boxplot(rand.data, col = colorRampPalette(brewer.pal(8, "BrBG"))(20))
+```

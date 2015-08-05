@@ -18,3 +18,12 @@ test2 <- c("4.56% excess anode", "4.87% excess anode", "43.897% excess anode")
 #group 3 - any character any number of times". replacement "\\1" replaces with unit 1
 sub(x = test2, pattern = '(.*)(%)(.*)', replacement = '\\1')
 [1] "4.56"   "4.87"   "43.897"
+
+#to escape a metacharacter, you have to use double backslashes to get R
+#to pass the single backslash metacharacter to the regex engine, basically seems 
+#like an implementation quirk
+test3 <- c("Bob + Jane", "Adam + Eve", "Adam + Steve")
+
+#grab the second name from each pair
+sub(x = test3, pattern = '(.*)(\\+\\s)(.*)', replacement = '\\3')
+[1] "Jane"  "Eve"   "Steve"
